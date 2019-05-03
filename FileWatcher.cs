@@ -13,22 +13,23 @@ namespace SynkNote_Desktop
                               | NotifyFilters.FileName
                               | NotifyFilters.DirectoryName;
          Watcher.Filter       = "*.*";
+         Watcher.EnableRaisingEvents = true;
+         Watcher.IncludeSubdirectories = true;
+
          Watcher.Changed += OnChanged;
          Watcher.Created += OnChanged;
          Watcher.Deleted += OnChanged;
          Watcher.Renamed += OnRenamed;
-         Watcher.EnableRaisingEvents = true;
       }
 
       private void OnChanged(object source, FileSystemEventArgs e)
       {
-         Console.WriteLine("Changed");
+         Console.WriteLine($"Changed {e.FullPath}");
       }
 
       private void OnRenamed(object source, RenamedEventArgs e)
       {
          Console.WriteLine($"Renamed {e.OldFullPath} to {e.FullPath}");
       }
-
    }
 }
